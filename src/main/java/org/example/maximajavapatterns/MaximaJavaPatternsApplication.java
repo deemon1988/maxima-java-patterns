@@ -1,5 +1,6 @@
 package org.example.maximajavapatterns;
 
+import org.example.maximajavapatterns.multithreading.MyThread;
 import org.example.maximajavapatterns.observer.Publisher;
 import org.example.maximajavapatterns.observer.Subscriber;
 import org.example.maximajavapatterns.proxy.CachedDataSource;
@@ -26,12 +27,21 @@ public class MaximaJavaPatternsApplication implements CommandLineRunner {
 //		//Здесь нет задержки
 //		System.out.println(source.getData());
 
-		Publisher publisher = new Publisher("Publisher #1","Payload");
+		/*Publisher publisher = new Publisher("Publisher #1","Payload");
 		Subscriber subscriber1 = new Subscriber("Subscriber #1");
 		Subscriber subscriber2 = new Subscriber("Subscriber #2");
 
 		publisher.addSubscriber(subscriber1);
 		publisher.addSubscriber(subscriber2);
-		publisher.setData("New payload");
+		publisher.setData("New payload");*/
+
+		MyThread myThread = new MyThread();
+		Thread second = new Thread(myThread);
+		second.start();
+
+		MyThread.doJob(1000);
+
+		second.join();
+		System.out.println("Все потоки завершены");
 	}
 }
